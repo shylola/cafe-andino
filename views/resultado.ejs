@@ -1,0 +1,14 @@
+<%- include('partials/header') %>
+<% if (aprobada) { %>
+  <h1>¡Gracias por tu compra!</h1>
+  <p>Orden <strong><%= orden.buy_order %></strong> pagada por <%= clp(orden.total) %> con <%= orden.medio_pago === 'webpay' ? 'Webpay' : 'pago simulado' %>.</p>
+  <% if (comprobante) { %><p class="nota">Autorización <%= comprobante.authorization_code %> · tarjeta terminada en <%= comprobante.card_detail && comprobante.card_detail.card_number %></p><% } %>
+<% } else { %>
+  <h1>El pago fue rechazado</h1>
+  <p>No se realizó ningún cargo. Tu carrito sigue disponible.</p>
+<% } %>
+<ul class="resumen">
+  <% items.forEach(i => { %><li><%= i.cantidad %> × <%= i.nombre %></li><% }) %>
+</ul>
+<a class="boton" href="/productos">Seguir comprando</a>
+<%- include('partials/footer') %>

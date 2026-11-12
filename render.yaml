@@ -1,0 +1,18 @@
+# Blueprint de Render (plan gratuito). Render detecta este archivo al crear el servicio.
+services:
+  - type: web
+    name: cafe-andino
+    runtime: node
+    plan: free
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22.22.0
+      - key: GA_MEASUREMENT_ID
+        sync: false        # se ingresa en el panel de Render (G-XXXXXXXXXX)
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: TIENDA_NOMBRE
+        value: Café Andino

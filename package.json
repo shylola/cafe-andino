@@ -1,0 +1,23 @@
+{
+  "name": "tienda-desempeno",
+  "version": "1.0.0",
+  "description": "Tienda e-commerce para el proyecto de Desempeño de Sistemas UTEM 2026",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "transbank-sdk": "^6.1.1"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "private": true
+}

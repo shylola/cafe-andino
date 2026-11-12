@@ -1,0 +1,31 @@
+REGISTRO DE PROMPTS — Proyecto Desempeño de Sistemas 2026 (Café Andino)
+Formato: fecha y hora (UTC) · prompt completo · modelo · resumen de lo generado
+======================================================================
+
+[2026-10-22 23:19 UTC]
+PROMPT: (se compartió el calendario del curso y el PDF "Trabajo Semestre 2 - 2026")
+MODELO: Claude Opus 5.5 (Claude Code)
+RESUMEN: Lectura del enunciado. Se generó un documento "Plan Laboratorio 1 y P1" con resumen de
+requisitos, plan semana a semana hasta el 16-nov, checklist de entrega y temas para la P1.
+
+[2026-11-04 22:45 UTC]
+PROMPT: "ayudame a hacer el proyecto"
+MODELO: Claude Opus 5.5 (Claude Code)
+RESUMEN: Se propuso elegir entre Opción 1 (e-commerce) y Opción 2 (servicios).
+
+[2026-11-04 22:46 UTC]
+PROMPT: (elección) "Opción 1: e-commerce"
+MODELO: Claude Opus 5.5 (Claude Code)
+RESUMEN: Se construyó la tienda completa:
+ - Instalado: express 5, ejs, express-session, bcryptjs, transbank-sdk 6.
+ - Base de datos SQLite nativa (node:sqlite) con tablas productos, usuarios, ordenes; 24 productos en 5 categorías.
+ - Páginas: home (destacados), listado con búsqueda/filtros/orden/paginación, detalle con relacionados,
+   carrito, registro, login, checkout, resultado de pago, mis compras.
+ - Pago: Webpay Plus ambiente de integración + pago simulado para pruebas de carga.
+ - GA4 vía gtag.js con eventos view_item_list, search, view_item, add_to_cart, remove_from_cart,
+   view_cart, begin_checkout, add_payment_info, purchase, sign_up, login; Core Web Vitals con web-vitals.
+ - Endpoints /api/health y /api/metricas (peticiones, errores, CPU, memoria).
+ - Pruebas automáticas (node --test): 6 pruebas del flujo completo, todas pasan.
+ - Generador de carga k6 con 4 perfiles (navegante, buscador, comprador, abandono) y escenarios
+   baja/normal/estres parametrizables (VUS, RAMPUP, DURACION, PAUSA, MEZCLA). Prueba local: 0% errores.
+ - AGENTS.md, README.md, render.yaml para deploy en Render.

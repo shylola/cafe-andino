@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= titulo %> · <%= tienda %></title>
+  <link rel="stylesheet" href="/css/estilos.css">
+  <% if (gaId) { %>
+  <!-- Google Analytics 4 (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=<%= gaId %>"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '<%= gaId %>'<% if (usuario) { %>, { user_id: '<%= usuario.id %>' }<% } %>);
+  </script>
+  <% } else { %>
+  <script>window.gtag = function(){ (window.gaDebug = window.gaDebug || []).push(arguments); };</script>
+  <% } %>
+</head>
+<body>
+<header class="barra">
+  <a class="marca" href="/">☕ <%= tienda %></a>
+  <form class="buscar" action="/productos" method="get" role="search">
+    <input name="q" type="search" placeholder="Buscar productos..." aria-label="Buscar">
+  </form>
+  <nav>
+    <a href="/productos">Catálogo</a>
+    <% if (usuario) { %>
+      <a href="/mis-compras">Mis compras</a>
+      <form action="/logout" method="post" class="inline"><button class="link">Salir (<%= usuario.nombre %>)</button></form>
+    <% } else { %>
+      <a href="/login">Ingresar</a>
+      <a href="/registro">Crear cuenta</a>
+    <% } %>
+    <a class="carrito" href="/carrito">Carrito (<%= cantCarrito %>)</a>
+  </nav>
+</header>
+<% if (flash) { %><div class="flash"><%= flash %></div><% } %>
+<main>

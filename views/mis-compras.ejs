@@ -1,0 +1,14 @@
+<%- include('partials/header') %>
+<h1>Mis compras</h1>
+<% if (!ordenes.length) { %><p>Aún no tienes compras.</p><% } else { %>
+<table class="tabla">
+  <thead><tr><th>Orden</th><th>Fecha</th><th>Total</th><th>Estado</th><th>Productos</th></tr></thead>
+  <tbody>
+  <% ordenes.forEach(o => { %>
+    <tr><td><%= o.buy_order %></td><td><%= o.creado_en %></td><td><%= clp(o.total) %></td><td><%= o.estado %></td>
+      <td><%= o.detalle.map(i => i.cantidad + ' × ' + i.nombre).join(', ') %></td></tr>
+  <% }) %>
+  </tbody>
+</table>
+<% } %>
+<%- include('partials/footer') %>

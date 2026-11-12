@@ -1,0 +1,19 @@
+<%- include('partials/header') %>
+<section class="hero">
+  <h1>Café de especialidad, té y accesorios</h1>
+  <p>Tostado en Santiago, despacho a todo Chile.</p>
+  <a class="boton" href="/productos">Ver catálogo</a>
+</section>
+<section>
+  <h2>Categorías</h2>
+  <ul class="chips">
+    <% categorias.forEach(c => { %><li><a href="/productos?categoria=<%= encodeURIComponent(c) %>"><%= c %></a></li><% }) %>
+  </ul>
+</section>
+<section>
+  <h2>Destacados</h2>
+  <div class="grilla">
+    <% destacados.forEach(p => { %><%- include('partials/tarjeta', { p, volver: '/' }) %><% }) %>
+  </div>
+</section>
+<%- include('partials/footer') %>

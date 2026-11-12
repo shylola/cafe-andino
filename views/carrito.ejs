@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+<h1>Tu carrito</h1>
+<% if (!items.length) { %>
+  <p>Tu carrito está vacío. <a href="/productos">Ver catálogo</a></p>
+<% } else { %>
+<table class="tabla">
+  <thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Subtotal</th></tr></thead>
+  <tbody>
+  <% items.forEach(i => { %>
+    <tr>
+      <td><a href="/producto/<%= i.p.slug %>"><%= i.p.nombre %></a></td>
+      <td><%= clp(i.p.precio) %></td>
+      <td>
+        <form action="/carrito/actualizar" method="post" class="inline">
+          <input type="hidden" name="id" value="<%= i.p.id %>">
+          <input type="number" name="cantidad" value="<%= i.cantidad %>" min="0" max="<%= i.p.stock %>">
+          <button class="link">Actualizar</button>
+        </form>
+      </td>
+      <td><%= clp(i.subtotal) %></td>
+    </tr>
+  <% }) %>
+  </tbody>
+  <tfoot><tr><th colspan="3">Total</th><th><%= clp(total) %></th></tr></tfoot>
+</table>
+<p class="nota">Pon cantidad 0 para quitar un producto.</p>
+<a class="boton" href="/checkout">Ir a pagar</a>
+<% } %>
+<%- include('partials/footer') %>

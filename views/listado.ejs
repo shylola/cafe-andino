@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+<h1>Catálogo</h1>
+<form class="filtros" method="get" action="/productos">
+  <input name="q" value="<%= filtros.q %>" placeholder="Buscar">
+  <select name="categoria">
+    <option value="">Todas las categorías</option>
+    <% categorias.forEach(c => { %><option <%= c === filtros.categoria ? 'selected' : '' %>><%= c %></option><% }) %>
+  </select>
+  <input name="min" type="number" min="0" value="<%= filtros.min %>" placeholder="Precio mín.">
+  <input name="max" type="number" min="0" value="<%= filtros.max %>" placeholder="Precio máx.">
+  <select name="orden">
+    <% [['relevancia','Relevancia'],['precio_asc','Menor precio'],['precio_desc','Mayor precio'],['nombre','Nombre']].forEach(([v,t]) => { %>
+      <option value="<%= v %>" <%= v === filtros.orden ? 'selected' : '' %>><%= t %></option>
+    <% }) %>
+  </select>
+  <button>Filtrar</button>
+</form>
+<p class="nota"><%= total %> producto(s)</p>
+<div class="grilla">
+  <% items.forEach(p => { %><%- include('partials/tarjeta', { p, volver: '/productos' }) %><% }) %>
+</div>
+<% if (paginas > 1) { %>
+<nav class="paginas">
+  <% for (let i = 1; i <= paginas; i++) { const qs = new URLSearchParams({ ...filtros, pagina: i }).toString(); %>
+    <a href="/productos?<%= qs %>" class="<%= i === pagina ? 'activa' : '' %>"><%= i %></a>
+  <% } %>
+</nav>
+<% } %>
+<%- include('partials/footer') %>

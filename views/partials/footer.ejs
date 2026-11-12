@@ -1,0 +1,20 @@
+</main>
+<footer class="pie">
+  <p><%= tienda %> · Proyecto Desempeño de Sistemas UTEM 2026 · Sitio académico, los pagos son de prueba.</p>
+</footer>
+<script>
+  // Eventos GA4 de comercio electrónico generados por el servidor para esta página.
+  <% if (gaPendiente) { %>gtag('event', <%- JSON.stringify(gaPendiente.evento) %>, <%- JSON.stringify(gaPendiente.params).replace(/</g, '\\u003c') %>);<% } %>
+  <% if (ga) { %>gtag('event', <%- JSON.stringify(ga.evento) %>, <%- JSON.stringify(ga.params).replace(/</g, '\\u003c') %>);<% } %>
+</script>
+<script type="module">
+  // Core Web Vitals (LCP, CLS, INP, FCP, TTFB) enviados a GA4 como eventos.
+  import { onCLS, onINP, onLCP, onFCP, onTTFB } from 'https://unpkg.com/web-vitals@4.2.4/dist/web-vitals.js?module';
+  const enviar = ({ name, delta, value, id, rating }) => gtag('event', name, {
+    value: Math.round(name === 'CLS' ? delta * 1000 : delta),
+    metric_id: id, metric_value: value, metric_rating: rating, non_interaction: true,
+  });
+  onCLS(enviar); onINP(enviar); onLCP(enviar); onFCP(enviar); onTTFB(enviar);
+</script>
+</body>
+</html>
