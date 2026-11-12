@@ -1,8 +1,10 @@
 <%- include('partials/header') %>
-<h1>Redirigiendo a Webpay…</h1>
-<form id="webpay" action="<%= url %>" method="post">
-  <input type="hidden" name="token_ws" value="<%= token %>">
-  <button class="boton">Continuar a Webpay</button>
-</form>
-<script>document.getElementById('webpay').submit();</script>
+<div class="contenedor angosto centro">
+  <h1>Redirigiendo a Webpay…</h1>
+  <form id="webpay" action="<%= url %>" method="post">
+    <input type="hidden" name="token_ws" value="<%= token %>">
+    <button class="btn">Continuar a Webpay</button>
+  </form>
+  <script>document.getElementById('webpay').submit();</script>
+</div>
 <%- include('partials/footer') %>

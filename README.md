@@ -16,6 +16,10 @@ Variables de entorno: ver `.env.example`. Sin `GA_MEASUREMENT_ID` el sitio funci
 
 **Pago de prueba Webpay:** tarjeta VISA `4051 8856 0044 6623`, CVV `123`, cualquier fecha futura; RUT `11.111.111-1`, clave `123`. También hay un "pago simulado" que aprueba la compra sin salir del sitio (es el que usan las pruebas de carga).
 
+### Imágenes de productos
+
+Cada producto tiene una ilustración generada automáticamente (`src/imagenes.js`). Para usar **fotos reales**, guarda la imagen en `public/img/productos/` con el *slug* del producto como nombre, por ejemplo `public/img/productos/cafe-de-grano-huila-250-g.jpg` (formatos jpg, png o webp, idealmente cuadradas de 800×800). El slug aparece en la URL del producto. Al reiniciar el servidor se usa la foto en vez de la ilustración.
+
 ## 2. Subir a GitHub
 
 ```bash

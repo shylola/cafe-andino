@@ -29,3 +29,20 @@ RESUMEN: Se construyó la tienda completa:
  - Generador de carga k6 con 4 perfiles (navegante, buscador, comprador, abandono) y escenarios
    baja/normal/estres parametrizables (VUS, RAMPUP, DURACION, PAUSA, MEZCLA). Prueba local: 0% errores.
  - AGENTS.md, README.md, render.yaml para deploy en Render.
+
+[2026-11-12 20:22 UTC]
+PROMPT: "me gusta PERO COMO PUEDO CAMBIAR EL DISEÑO PARA HACERLOO REALISTA Y BONITO"
+        + referencia: "https://blackdrop.cl/ ALGO asi pero que vaya con la tematica del cafe andino"
+MODELO: Claude Opus 5.5 (Claude Code)
+RESUMEN: Rediseño visual completo inspirado en tiendas de café de especialidad (estilo minimalista oscuro
+con acentos tierra andinos):
+ - Tipografías Archivo (títulos en mayúscula) y Fraunces (textos editoriales) desde Google Fonts.
+ - Barra de anuncios rotativa, cabecera fija con menú por categoría, buscador, cuenta y carrito; menú móvil.
+ - Home: hero con ilustración de los Andes, categorías numeradas 01–05, "Más vendidos", sección
+   "Del origen a tu taza" con cifras, cafés destacados, banners dobles, beneficios y pie con newsletter
+   (evento GA4 generate_lead).
+ - Imágenes de producto generadas en SVG según categoría (bolsas de café, latas de té, cajas de repostería,
+   tazas y accesorios) en src/imagenes.js, con soporte para fotos reales en public/img/productos/.
+ - Listado con filtros laterales y migas; detalle con selector de cantidad, ficha y acordeones;
+   carrito y checkout con resumen lateral; estados de órdenes con color.
+ - Pruebas: 6/6 pasan. k6 local: 0% de errores.

@@ -1,29 +1,41 @@
 <%- include('partials/header') %>
-<h1>Tu carrito</h1>
-<% if (!items.length) { %>
-  <p>Tu carrito está vacío. <a href="/productos">Ver catálogo</a></p>
-<% } else { %>
-<table class="tabla">
-  <thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Subtotal</th></tr></thead>
-  <tbody>
-  <% items.forEach(i => { %>
-    <tr>
-      <td><a href="/producto/<%= i.p.slug %>"><%= i.p.nombre %></a></td>
-      <td><%= clp(i.p.precio) %></td>
-      <td>
-        <form action="/carrito/actualizar" method="post" class="inline">
-          <input type="hidden" name="id" value="<%= i.p.id %>">
-          <input type="number" name="cantidad" value="<%= i.cantidad %>" min="0" max="<%= i.p.stock %>">
-          <button class="link">Actualizar</button>
-        </form>
-      </td>
-      <td><%= clp(i.subtotal) %></td>
-    </tr>
-  <% }) %>
-  </tbody>
-  <tfoot><tr><th colspan="3">Total</th><th><%= clp(total) %></th></tr></tfoot>
-</table>
-<p class="nota">Pon cantidad 0 para quitar un producto.</p>
-<a class="boton" href="/checkout">Ir a pagar</a>
-<% } %>
+<div class="contenedor angosto">
+  <h1>Tu carrito</h1>
+  <% if (!items.length) { %>
+    <div class="vacio"><p>Tu carrito está vacío.</p><a class="btn" href="/productos">Ver productos</a></div>
+  <% } else { %>
+  <div class="carrito-grid">
+    <div class="carrito-items">
+      <% items.forEach(i => { %>
+        <div class="linea">
+          <img src="<%= img(i.p) %>" alt="" width="88" height="88">
+          <div class="linea-info">
+            <a href="/producto/<%= i.p.slug %>"><%= i.p.nombre %></a>
+            <span class="nota"><%= clp(i.p.precio) %> c/u</span>
+            <form action="/carrito/actualizar" method="post" class="linea-cant">
+              <input type="hidden" name="id" value="<%= i.p.id %>">
+              <input type="number" name="cantidad" value="<%= i.cantidad %>" min="0" max="<%= i.p.stock %>" aria-label="Cantidad">
+              <button class="enlace">Actualizar</button>
+            </form>
+            <form action="/carrito/actualizar" method="post" class="inline">
+              <input type="hidden" name="id" value="<%= i.p.id %>"><input type="hidden" name="cantidad" value="0">
+              <button class="enlace">Quitar</button>
+            </form>
+          </div>
+          <strong><%= clp(i.subtotal) %></strong>
+        </div>
+      <% }) %>
+    </div>
+    <aside class="resumen-caja">
+      <h2>Resumen</h2>
+      <p><span>Subtotal</span><span><%= clp(total) %></span></p>
+      <p><span>Despacho</span><span><%= total >= 39990 ? 'Gratis' : 'Se calcula al pagar' %></span></p>
+      <% if (total < 39990) { %><p class="nota">Te faltan <%= clp(39990 - total) %> para despacho gratis.</p><% } %>
+      <p class="total"><span>Total</span><span><%= clp(total) %></span></p>
+      <a class="btn ancho" href="/checkout">Ir a pagar</a>
+      <a class="enlace-centro" href="/productos">Seguir comprando</a>
+    </aside>
+  </div>
+  <% } %>
+</div>
 <%- include('partials/footer') %>
