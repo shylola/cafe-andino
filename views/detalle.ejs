@@ -1,26 +1,38 @@
 <%- include('partials/header') %>
-<article class="detalle">
-  <img src="/img/<%= p.categoria.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z]+/g,'-') %>.svg" alt="" width="480" height="320">
-  <div>
-    <p class="cat"><a href="/productos?categoria=<%= encodeURIComponent(p.categoria) %>"><%= p.categoria %></a></p>
-    <h1><%= p.nombre %></h1>
-    <p class="precio grande"><%= clp(p.precio) %></p>
-    <p><%= p.descripcion %></p>
-    <% if (p.origen) { %><p>Origen: <%= p.origen %></p><% } %>
-    <p class="nota">Stock disponible: <%= p.stock %></p>
-    <form action="/carrito/agregar" method="post" class="agregar">
-      <input type="hidden" name="id" value="<%= p.id %>">
-      <label>Cantidad <input type="number" name="cantidad" value="1" min="1" max="10"></label>
-      <button>Agregar al carrito</button>
-    </form>
-  </div>
-</article>
-<% if (relacionados.length) { %>
-<section>
-  <h2>También te puede gustar</h2>
-  <div class="grilla">
-    <% relacionados.forEach(r => { %><%- include('partials/tarjeta', { p: r, volver: '/producto/' + p.slug }) %><% }) %>
-  </div>
-</section>
-<% } %>
+<div class="contenedor">
+  <nav class="migas" aria-label="Ruta"><a href="/">Inicio</a> / <a href="/productos?categoria=<%= encodeURIComponent(p.categoria) %>"><%= p.categoria %></a> / <span><%= p.nombre %></span></nav>
+  <article class="detalle">
+    <div class="detalle-img"><img src="<%= img(p) %>" alt="<%= p.nombre %>" width="600" height="600"></div>
+    <div class="detalle-info">
+      <p class="marca-prod"><%= tienda %> · <%= p.categoria %></p>
+      <h1><%= p.nombre %></h1>
+      <p class="precio grande"><%= clp(p.precio) %></p>
+      <p class="descripcion"><%= p.descripcion %></p>
+      <dl class="ficha">
+        <% if (p.origen) { %><dt>Origen</dt><dd><%= p.origen %></dd><% } %>
+        <dt>Disponibilidad</dt><dd><%= p.stock < 25 ? `¡Últimas ${p.stock} unidades!` : 'En stock' %></dd>
+        <dt>Despacho</dt><dd>2 a 4 días hábiles</dd>
+      </dl>
+      <form action="/carrito/agregar" method="post" class="agregar">
+        <input type="hidden" name="id" value="<%= p.id %>">
+        <div class="cantidad">
+          <button type="button" aria-label="Menos" onclick="this.nextElementSibling.stepDown()">−</button>
+          <input type="number" name="cantidad" value="1" min="1" max="10" aria-label="Cantidad">
+          <button type="button" aria-label="Más" onclick="this.previousElementSibling.stepUp()">+</button>
+        </div>
+        <button class="btn">Agregar al carrito</button>
+      </form>
+      <details class="acordeon"><summary>Envío y retiro</summary><p>Despacho gratis en compras sobre $39.990. Retiro sin costo en nuestra tienda de Santiago.</p></details>
+      <details class="acordeon"><summary>Pago seguro</summary><p>Pagas con Webpay de Transbank: débito, crédito o prepago.</p></details>
+    </div>
+  </article>
+  <% if (relacionados.length) { %>
+  <section class="seccion">
+    <div class="seccion-titulo"><h2>También te puede gustar</h2></div>
+    <div class="grilla">
+      <% relacionados.forEach(r => { %><%- include('partials/tarjeta', { p: r, volver: '/producto/' + p.slug }) %><% }) %>
+    </div>
+  </section>
+  <% } %>
+</div>
 <%- include('partials/footer') %>

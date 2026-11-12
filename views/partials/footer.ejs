@@ -1,8 +1,43 @@
 </main>
+<section class="beneficios">
+  <div><strong>Tostado semanal</strong><span>Tostamos cada martes en Santiago.</span></div>
+  <div><strong>Despacho a todo Chile</strong><span>Gratis sobre $39.990.</span></div>
+  <div><strong>Pago seguro</strong><span>Webpay: débito, crédito y prepago.</span></div>
+  <div><strong>Comercio directo</strong><span>Compramos a pequeños productores.</span></div>
+</section>
 <footer class="pie">
-  <p><%= tienda %> · Proyecto Desempeño de Sistemas UTEM 2026 · Sitio académico, los pagos son de prueba.</p>
+  <div class="pie-in">
+    <div class="pie-marca">
+      <p class="logo-pie"><%= tienda.toUpperCase() %></p>
+      <p>Café de altura, del origen a tu taza.</p>
+      <form class="newsletter" onsubmit="event.preventDefault(); gtag('event','generate_lead',{method:'newsletter'}); this.innerHTML='<p>¡Listo! Te escribiremos pronto.</p>';">
+        <label for="nl">Suscríbete y recibe 10% en tu primera compra</label>
+        <div><input id="nl" type="email" placeholder="tu@email.cl" required><button>Suscribirme</button></div>
+      </form>
+    </div>
+    <div>
+      <h4>Tienda</h4>
+      <% categoriasMenu.forEach(c => { %><a href="/productos?categoria=<%= encodeURIComponent(c) %>"><%= c %></a><% }) %>
+    </div>
+    <div>
+      <h4>Mi cuenta</h4>
+      <a href="/login">Iniciar sesión</a><a href="/registro">Crear cuenta</a><a href="/mis-compras">Mis compras</a><a href="/carrito">Carrito</a>
+    </div>
+    <div>
+      <h4>Información</h4>
+      <span>Despachos de lunes a viernes</span><span>contacto@cafeandino.cl</span><span>Santiago, Chile</span>
+    </div>
+  </div>
+  <p class="pie-legal">© 2026 <%= tienda %> · Proyecto académico Desempeño de Sistemas UTEM · Los pagos son de prueba (Transbank integración).</p>
 </footer>
 <script>
+  // Barra de anuncios rotativa.
+  (function () {
+    var items = document.querySelectorAll('.anuncio-item'), i = 0;
+    if (items.length > 1) setInterval(function () {
+      items[i].classList.remove('activo'); i = (i + 1) % items.length; items[i].classList.add('activo');
+    }, 4000);
+  })();
   // Eventos GA4 de comercio electrónico generados por el servidor para esta página.
   <% if (gaPendiente) { %>gtag('event', <%- JSON.stringify(gaPendiente.evento) %>, <%- JSON.stringify(gaPendiente.params).replace(/</g, '\\u003c') %>);<% } %>
   <% if (ga) { %>gtag('event', <%- JSON.stringify(ga.evento) %>, <%- JSON.stringify(ga.params).replace(/</g, '\\u003c') %>);<% } %>

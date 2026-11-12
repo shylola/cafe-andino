@@ -1,14 +1,18 @@
 <%- include('partials/header') %>
-<h1>Mis compras</h1>
-<% if (!ordenes.length) { %><p>Aún no tienes compras.</p><% } else { %>
-<table class="tabla">
-  <thead><tr><th>Orden</th><th>Fecha</th><th>Total</th><th>Estado</th><th>Productos</th></tr></thead>
-  <tbody>
-  <% ordenes.forEach(o => { %>
-    <tr><td><%= o.buy_order %></td><td><%= o.creado_en %></td><td><%= clp(o.total) %></td><td><%= o.estado %></td>
-      <td><%= o.detalle.map(i => i.cantidad + ' × ' + i.nombre).join(', ') %></td></tr>
-  <% }) %>
-  </tbody>
-</table>
-<% } %>
+<div class="contenedor angosto">
+  <h1>Mis compras</h1>
+  <% if (!ordenes.length) { %><div class="vacio"><p>Aún no tienes compras.</p><a class="btn" href="/productos">Ver productos</a></div><% } else { %>
+  <div class="tabla-scroll">
+  <table class="tabla">
+    <thead><tr><th>Orden</th><th>Fecha</th><th>Total</th><th>Estado</th><th>Productos</th></tr></thead>
+    <tbody>
+    <% ordenes.forEach(o => { %>
+      <tr><td><%= o.buy_order %></td><td><%= o.creado_en %></td><td><%= clp(o.total) %></td><td><span class="estado <%= o.estado %>"><%= o.estado %></span></td>
+        <td><%= o.detalle.map(i => i.cantidad + ' × ' + i.nombre).join(', ') %></td></tr>
+    <% }) %>
+    </tbody>
+  </table>
+  </div>
+  <% } %>
+</div>
 <%- include('partials/footer') %>

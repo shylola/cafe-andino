@@ -1,20 +1,25 @@
 <%- include('partials/header') %>
-<h1>Checkout</h1>
-<p>Comprando como <strong><%= usuario.nombre %></strong> (<%= usuario.email %>).</p>
-<ul class="resumen">
-  <% items.forEach(i => { %><li><%= i.cantidad %> × <%= i.p.nombre %> — <%= clp(i.subtotal) %></li><% }) %>
-</ul>
-<p class="precio grande">Total: <%= clp(total) %></p>
-<form action="/checkout" method="post" class="pago">
-  <fieldset>
-    <legend>Medio de pago</legend>
-    <label><input type="radio" name="medio" value="webpay" checked> Webpay Plus (ambiente de integración Transbank)</label>
-    <% if (simulado) { %><label><input type="radio" name="medio" value="simulado"> Pago simulado (para pruebas de carga)</label><% } %>
-  </fieldset>
-  <button class="boton">Pagar</button>
-</form>
-<details class="nota">
-  <summary>Datos de prueba Webpay</summary>
-  <p>Tarjeta VISA 4051 8856 0044 6623, CVV 123, cualquier fecha futura. En la autenticación: RUT 11.111.111-1, clave 123.</p>
-</details>
+<div class="contenedor angosto">
+  <h1>Finalizar compra</h1>
+  <div class="carrito-grid">
+    <form action="/checkout" method="post" class="pago">
+      <p>Comprando como <strong><%= usuario.nombre %></strong> (<%= usuario.email %>)</p>
+      <fieldset>
+        <legend>Medio de pago</legend>
+        <label class="opcion"><input type="radio" name="medio" value="webpay" checked> <span><strong>Webpay Plus</strong><small>Débito, crédito o prepago (ambiente de pruebas Transbank)</small></span></label>
+        <% if (simulado) { %><label class="opcion"><input type="radio" name="medio" value="simulado"> <span><strong>Pago simulado</strong><small>Aprueba al instante, para pruebas de carga</small></span></label><% } %>
+      </fieldset>
+      <button class="btn ancho">Pagar <%= clp(total) %></button>
+      <details class="acordeon">
+        <summary>Datos de prueba Webpay</summary>
+        <p>Tarjeta VISA 4051 8856 0044 6623, CVV 123, cualquier fecha futura. En la autenticación: RUT 11.111.111-1, clave 123.</p>
+      </details>
+    </form>
+    <aside class="resumen-caja">
+      <h2>Tu pedido</h2>
+      <% items.forEach(i => { %><p><span><%= i.cantidad %> × <%= i.p.nombre %></span><span><%= clp(i.subtotal) %></span></p><% }) %>
+      <p class="total"><span>Total</span><span><%= clp(total) %></span></p>
+    </aside>
+  </div>
+</div>
 <%- include('partials/footer') %>

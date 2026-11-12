@@ -7,6 +7,7 @@ const db = require('./db');
 const auth = require('./auth');
 const carrito = require('./carrito');
 const pagos = require('./pagos');
+const { urlImagen, svgProducto } = require('./imagenes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -39,6 +40,15 @@ app.use((req, res, next) => {
   next();
 });
 
+const categorias = () => db.prepare('SELECT DISTINCT categoria FROM productos ORDER BY categoria').all().map(r => r.categoria);
+
+// Ilustración SVG de cada producto (se usa cuando no hay foto real).
+app.get('/img/p/:slug.svg', (req, res, next) => {
+  const p = db.prepare('SELECT * FROM productos WHERE slug = ?').get(req.params.slug);
+  if (!p) return next();
+  res.type('image/svg+xml').set('Cache-Control', 'public, max-age=86400').send(svgProducto(p));
+});
+
 // Variables disponibles en todas las vistas.
 app.use((req, res, next) => {
   res.locals.tienda = TIENDA;
@@ -50,17 +60,23 @@ app.use((req, res, next) => {
   // Evento GA4 generado en un POST anterior (ej. add_to_cart) que se envía en la página siguiente.
   res.locals.gaPendiente = req.session.gaPendiente || null;
   delete req.session.gaPendiente;
+  res.locals.img = urlImagen;
+  res.locals.categoriasMenu = categorias();
+  res.locals.ruta = req.path;
   res.locals.clp = (n) => '$' + Number(n).toLocaleString('es-CL');
   res.locals.ga = null; // evento GA4 opcional que cada página puede enviar
   next();
 });
 
-const categorias = () => db.prepare('SELECT DISTINCT categoria FROM productos ORDER BY categoria').all().map(r => r.categoria);
 
 // Home: destacados y categorías.
 app.get('/', (req, res) => {
-  const destacados = db.prepare('SELECT * FROM productos WHERE destacado = 1 ORDER BY id').all();
-  res.render('home', { titulo: 'Inicio', destacados, categorias: categorias() });
+  const destacados = db.prepare('SELECT * FROM productos WHERE destacado = 1 ORDER BY id LIMIT 4').all();
+  // Un producto representativo por categoría para las tarjetas de categoría.
+  const portadas = db.prepare('SELECT categoria, MIN(id) AS id FROM productos GROUP BY categoria ORDER BY categoria').all()
+    .map(r => ({ categoria: r.categoria, p: db.prepare('SELECT * FROM productos WHERE id = ?').get(r.id) }));
+  const cafes = db.prepare("SELECT * FROM productos WHERE categoria = 'Café' ORDER BY id LIMIT 4").all();
+  res.render('home', { titulo: 'Café de altura', destacados, portadas, cafes });
 });
 
 // Listado con búsqueda, filtros, orden y paginación.

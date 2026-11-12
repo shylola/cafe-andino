@@ -1,19 +1,83 @@
 <%- include('partials/header') %>
 <section class="hero">
-  <h1>Café de especialidad, té y accesorios</h1>
-  <p>Tostado en Santiago, despacho a todo Chile.</p>
-  <a class="boton" href="/productos">Ver catálogo</a>
+  <svg class="hero-montanas" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <circle cx="960" cy="150" r="70" fill="#c4572e"/>
+    <g transform="translate(0 110)">
+    <path d="M0 360 L180 200 L300 300 L470 120 L640 310 L760 220 L900 330 L1050 180 L1200 300 L1200 500 L0 500 Z" fill="#2a2420"/>
+    <path d="M0 420 L150 330 L320 400 L520 280 L700 410 L880 320 L1040 400 L1200 340 L1200 500 L0 500 Z" fill="#1f1a17"/>
+    <path d="M470 120 L510 165 L490 160 L470 180 L452 158 L432 166 Z" fill="#f5efe6" opacity=".85"/>
+    <path d="M1050 180 L1082 214 L1066 210 L1050 226 L1036 210 L1020 216 Z" fill="#f5efe6" opacity=".85"/>
+    </g>
+  </svg>
+  <div class="hero-texto">
+    <p class="etiqueta">Cosecha 2026 · Edición de altura</p>
+    <h1>Café de altura,<br>tostado en Chile</h1>
+    <p>Granos de fincas sobre los 1.500 metros, de Colombia a Etiopía. Tostamos cada martes para que llegue fresco a tu taza.</p>
+    <div class="hero-botones">
+      <a class="btn" href="/productos?categoria=Caf%C3%A9">Comprar café</a>
+      <a class="btn-claro" href="/productos">Ver todo</a>
+    </div>
+  </div>
 </section>
-<section>
-  <h2>Categorías</h2>
-  <ul class="chips">
-    <% categorias.forEach(c => { %><li><a href="/productos?categoria=<%= encodeURIComponent(c) %>"><%= c %></a></li><% }) %>
-  </ul>
+
+<section class="seccion">
+  <div class="seccion-titulo">
+    <h2>Categorías</h2>
+    <a href="/productos">Ver todo →</a>
+  </div>
+  <div class="categorias">
+    <% portadas.forEach((c, i) => { %>
+      <a class="categoria" href="/productos?categoria=<%= encodeURIComponent(c.categoria) %>">
+        <img src="<%= img(c.p) %>" alt="" width="400" height="400" loading="lazy">
+        <span class="num"><%= String(i + 1).padStart(2, '0') %></span>
+        <span class="nombre"><%= c.categoria %></span>
+      </a>
+    <% }) %>
+  </div>
 </section>
-<section>
-  <h2>Destacados</h2>
+
+<section class="seccion">
+  <div class="seccion-titulo">
+    <h2>Más vendidos</h2>
+    <a href="/productos">Ver todos →</a>
+  </div>
   <div class="grilla">
     <% destacados.forEach(p => { %><%- include('partials/tarjeta', { p, volver: '/' }) %><% }) %>
   </div>
+</section>
+
+<section class="manifiesto">
+  <div class="patron" aria-hidden="true"></div>
+  <p class="etiqueta">Nuestro ritual</p>
+  <h2>Del origen<br>a tu taza</h2>
+  <p>Compramos directo a productores de altura, pagamos sobre el precio de comercio justo y tostamos en lotes pequeños. Sin intermediarios, sin café viejo.</p>
+  <div class="cifras">
+    <div><strong>1.800 m</strong><span>altura promedio de nuestras fincas</span></div>
+    <div><strong>6</strong><span>países de origen</span></div>
+    <div><strong>72 h</strong><span>del tostador a tu puerta</span></div>
+  </div>
+</section>
+
+<section class="seccion">
+  <div class="seccion-titulo">
+    <h2>Café de grano y molido</h2>
+    <a href="/productos?categoria=Caf%C3%A9">Ver cafés →</a>
+  </div>
+  <div class="grilla">
+    <% cafes.forEach(p => { %><%- include('partials/tarjeta', { p, volver: '/' }) %><% }) %>
+  </div>
+</section>
+
+<section class="banner-doble">
+  <a href="/productos?categoria=Accesorios" class="banner oscuro">
+    <p class="etiqueta">Métodos de filtrado</p>
+    <h3>Todo para tu barra en casa</h3>
+    <span>Goteros, molinillos y balanzas →</span>
+  </a>
+  <a href="/productos?categoria=Reposter%C3%ADa" class="banner terracota">
+    <p class="etiqueta">Para acompañar</p>
+    <h3>Repostería artesanal</h3>
+    <span>Alfajores, brownies y kuchen →</span>
+  </a>
 </section>
 <%- include('partials/footer') %>

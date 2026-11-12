@@ -1,29 +1,50 @@
 <%- include('partials/header') %>
-<h1>Catálogo</h1>
-<form class="filtros" method="get" action="/productos">
-  <input name="q" value="<%= filtros.q %>" placeholder="Buscar">
-  <select name="categoria">
-    <option value="">Todas las categorías</option>
-    <% categorias.forEach(c => { %><option <%= c === filtros.categoria ? 'selected' : '' %>><%= c %></option><% }) %>
-  </select>
-  <input name="min" type="number" min="0" value="<%= filtros.min %>" placeholder="Precio mín.">
-  <input name="max" type="number" min="0" value="<%= filtros.max %>" placeholder="Precio máx.">
-  <select name="orden">
-    <% [['relevancia','Relevancia'],['precio_asc','Menor precio'],['precio_desc','Mayor precio'],['nombre','Nombre']].forEach(([v,t]) => { %>
-      <option value="<%= v %>" <%= v === filtros.orden ? 'selected' : '' %>><%= t %></option>
-    <% }) %>
-  </select>
-  <button>Filtrar</button>
-</form>
-<p class="nota"><%= total %> producto(s)</p>
-<div class="grilla">
-  <% items.forEach(p => { %><%- include('partials/tarjeta', { p, volver: '/productos' }) %><% }) %>
+<div class="contenedor">
+  <nav class="migas" aria-label="Ruta"><a href="/">Inicio</a> / <span><%= filtros.categoria || (filtros.q ? 'Búsqueda' : 'Todos los productos') %></span></nav>
+  <div class="listado-cabecera">
+    <h1><%= filtros.categoria || (filtros.q ? `Resultados para “${filtros.q}”` : 'Todos los productos') %></h1>
+    <p class="nota"><%= total %> producto<%= total === 1 ? '' : 's' %></p>
+  </div>
+  <div class="listado">
+    <aside>
+      <form class="filtros" method="get" action="/productos">
+        <label>Buscar <input name="q" value="<%= filtros.q %>" placeholder="Ej: Etiopía"></label>
+        <label>Categoría
+          <select name="categoria">
+            <option value="">Todas</option>
+            <% categorias.forEach(c => { %><option <%= c === filtros.categoria ? 'selected' : '' %>><%= c %></option><% }) %>
+          </select>
+        </label>
+        <div class="rango">
+          <label>Desde <input name="min" type="number" min="0" step="1000" value="<%= filtros.min %>" placeholder="$0"></label>
+          <label>Hasta <input name="max" type="number" min="0" step="1000" value="<%= filtros.max %>" placeholder="$50.000"></label>
+        </div>
+        <label>Ordenar por
+          <select name="orden">
+            <% [['relevancia','Relevancia'],['precio_asc','Menor precio'],['precio_desc','Mayor precio'],['nombre','Nombre A-Z']].forEach(([v,t]) => { %>
+              <option value="<%= v %>" <%= v === filtros.orden ? 'selected' : '' %>><%= t %></option>
+            <% }) %>
+          </select>
+        </label>
+        <button class="btn">Aplicar filtros</button>
+        <% if (filtros.q || filtros.categoria || filtros.min || filtros.max) { %><a class="limpiar" href="/productos">Limpiar filtros</a><% } %>
+      </form>
+    </aside>
+    <div>
+      <% if (!items.length) { %>
+        <div class="vacio"><p>No encontramos productos con esos filtros.</p><a class="btn" href="/productos">Ver todo</a></div>
+      <% } %>
+      <div class="grilla">
+        <% items.forEach(p => { %><%- include('partials/tarjeta', { p, volver: '/productos' }) %><% }) %>
+      </div>
+      <% if (paginas > 1) { %>
+      <nav class="paginas" aria-label="Páginas">
+        <% for (let i = 1; i <= paginas; i++) { const qs = new URLSearchParams({ ...filtros, pagina: i }).toString(); %>
+          <a href="/productos?<%= qs %>" class="<%= i === pagina ? 'activa' : '' %>"><%= i %></a>
+        <% } %>
+      </nav>
+      <% } %>
+    </div>
+  </div>
 </div>
-<% if (paginas > 1) { %>
-<nav class="paginas">
-  <% for (let i = 1; i <= paginas; i++) { const qs = new URLSearchParams({ ...filtros, pagina: i }).toString(); %>
-    <a href="/productos?<%= qs %>" class="<%= i === pagina ? 'activa' : '' %>"><%= i %></a>
-  <% } %>
-</nav>
-<% } %>
 <%- include('partials/footer') %>

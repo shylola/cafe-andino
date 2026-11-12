@@ -1,13 +1,16 @@
 <article class="tarjeta">
-  <a href="/producto/<%= p.slug %>">
-    <img src="/img/<%= p.categoria.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z]+/g,'-') %>.svg" alt="" width="240" height="160" loading="lazy">
-    <h3><%= p.nombre %></h3>
+  <a class="tarjeta-img" href="/producto/<%= p.slug %>">
+    <img src="<%= img(p) %>" alt="<%= p.nombre %>" width="400" height="400" loading="lazy">
+    <% if (p.destacado) { %><span class="insignia">Más vendido</span><% } else if (p.stock < 25) { %><span class="insignia oscura">Últimas unidades</span><% } %>
   </a>
-  <p class="cat"><%= p.categoria %><% if (p.origen) { %> · <%= p.origen %><% } %></p>
-  <p class="precio"><%= clp(p.precio) %></p>
+  <div class="tarjeta-info">
+    <p class="marca-prod"><%= p.categoria %><% if (p.origen) { %> · <%= p.origen %><% } %></p>
+    <h3><a href="/producto/<%= p.slug %>"><%= p.nombre %></a></h3>
+    <p class="precio"><%= clp(p.precio) %></p>
+  </div>
   <form action="/carrito/agregar" method="post">
     <input type="hidden" name="id" value="<%= p.id %>">
     <input type="hidden" name="volver" value="<%= typeof volver !== 'undefined' ? volver : '/carrito' %>">
-    <button>Agregar al carrito</button>
+    <button class="btn-borde">Agregar al carrito</button>
   </form>
 </article>
