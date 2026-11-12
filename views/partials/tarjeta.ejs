@@ -1,4 +1,4 @@
-<article class="tarjeta">
+<article class="tarjeta" data-revelar>
   <a class="tarjeta-img" href="/producto/<%= p.slug %>">
     <img src="<%= img(p) %>" alt="<%= p.nombre %>" width="400" height="400" loading="lazy">
     <% if (p.destacado) { %><span class="insignia">Más vendido</span><% } else if (p.stock < 25) { %><span class="insignia oscura">Últimas unidades</span><% } %>
@@ -11,6 +11,6 @@
   <form action="/carrito/agregar" method="post">
     <input type="hidden" name="id" value="<%= p.id %>">
     <input type="hidden" name="volver" value="<%= typeof volver !== 'undefined' ? volver : '/carrito' %>">
-    <button class="btn-borde">Agregar al carrito</button>
+    <button class="btn-borde" data-cargando="Agregando…">Agregar al carrito</button>
   </form>
 </article>

@@ -1,17 +1,23 @@
 <%- include('partials/header') %>
 <section class="hero">
   <svg class="hero-montanas" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-    <circle cx="960" cy="150" r="70" fill="#c4572e"/>
-    <g transform="translate(0 110)">
-    <path d="M0 360 L180 200 L300 300 L470 120 L640 310 L760 220 L900 330 L1050 180 L1200 300 L1200 500 L0 500 Z" fill="#2a2420"/>
-    <path d="M0 420 L150 330 L320 400 L520 280 L700 410 L880 320 L1040 400 L1200 340 L1200 500 L0 500 Z" fill="#1f1a17"/>
-    <path d="M470 120 L510 165 L490 160 L470 180 L452 158 L432 166 Z" fill="#f5efe6" opacity=".85"/>
-    <path d="M1050 180 L1082 214 L1066 210 L1050 226 L1036 210 L1020 216 Z" fill="#f5efe6" opacity=".85"/>
+    <defs>
+      <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#392116"/><stop offset="1" stop-color="#5a3320"/></linearGradient>
+    </defs>
+    <rect width="1200" height="500" fill="url(#cielo)"/>
+    <circle cx="960" cy="150" r="70" fill="#C65A24" opacity=".9"/>
+    <circle cx="960" cy="150" r="110" fill="#C65A24" opacity=".08"/>
+    <g transform="translate(0 150)">
+    <path d="M0 330 L220 170 L360 260 L540 110 L720 280 L860 200 L1000 300 L1200 190 L1200 500 L0 500 Z" fill="#8C431F" opacity=".35"/>
+    <path d="M0 360 L180 200 L300 300 L470 120 L640 310 L760 220 L900 330 L1050 180 L1200 300 L1200 500 L0 500 Z" fill="#4a2a1b"/>
+    <path d="M0 420 L150 330 L320 400 L520 280 L700 410 L880 320 L1040 400 L1200 340 L1200 500 L0 500 Z" fill="#2c1810"/>
+    <path d="M470 120 L510 165 L490 160 L470 180 L452 158 L432 166 Z" fill="#F6E8D5" opacity=".9"/>
+    <path d="M1050 180 L1082 214 L1066 210 L1050 226 L1036 210 L1020 216 Z" fill="#F6E8D5" opacity=".9"/>
     </g>
   </svg>
   <div class="hero-texto">
     <p class="etiqueta">Cosecha 2026 · Edición de altura</p>
-    <h1>Café de altura,<br>tostado en Chile</h1>
+    <h1>Café de altura,<br><em>tostado en Chile</em></h1>
     <p>Granos de fincas sobre los 1.500 metros, de Colombia a Etiopía. Tostamos cada martes para que llegue fresco a tu taza.</p>
     <div class="hero-botones">
       <a class="btn" href="/productos?categoria=Caf%C3%A9">Comprar café</a>
@@ -20,7 +26,7 @@
   </div>
 </section>
 
-<section class="seccion">
+<section class="seccion" data-revelar>
   <div class="seccion-titulo">
     <h2>Categorías</h2>
     <a href="/productos">Ver todo →</a>
@@ -36,7 +42,7 @@
   </div>
 </section>
 
-<section class="seccion">
+<section class="seccion" data-revelar>
   <div class="seccion-titulo">
     <h2>Más vendidos</h2>
     <a href="/productos">Ver todos →</a>
@@ -46,10 +52,10 @@
   </div>
 </section>
 
-<section class="manifiesto">
+<section class="manifiesto" data-revelar>
   <div class="patron" aria-hidden="true"></div>
   <p class="etiqueta">Nuestro ritual</p>
-  <h2>Del origen<br>a tu taza</h2>
+  <h2>Del origen<br><em>a tu taza</em></h2>
   <p>Compramos directo a productores de altura, pagamos sobre el precio de comercio justo y tostamos en lotes pequeños. Sin intermediarios, sin café viejo.</p>
   <div class="cifras">
     <div><strong>1.800 m</strong><span>altura promedio de nuestras fincas</span></div>
@@ -58,7 +64,7 @@
   </div>
 </section>
 
-<section class="seccion">
+<section class="seccion" data-revelar>
   <div class="seccion-titulo">
     <h2>Café de grano y molido</h2>
     <a href="/productos?categoria=Caf%C3%A9">Ver cafés →</a>
@@ -68,7 +74,7 @@
   </div>
 </section>
 
-<section class="banner-doble">
+<section class="banner-doble" data-revelar>
   <a href="/productos?categoria=Accesorios" class="banner oscuro">
     <p class="etiqueta">Métodos de filtrado</p>
     <h3>Todo para tu barra en casa</h3>

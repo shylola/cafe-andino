@@ -7,7 +7,9 @@
   <meta name="description" content="Café de especialidad de altura, té, accesorios y repostería. Tostado en Santiago, despacho a todo Chile.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#392116">
+  <script>document.documentElement.classList.add('js');</script>
   <link rel="stylesheet" href="/css/estilos.css?v=<%= cssVersion %>">
   <% if (gaId) { %>
   <!-- Google Analytics 4 (gtag.js) -->
@@ -43,8 +45,8 @@
       </nav>
     </details>
     <a class="logo" href="/" aria-label="<%= tienda %>, inicio">
-      <svg width="34" height="22" viewBox="0 0 34 22" aria-hidden="true"><path d="M1 21 L11 5 L17 13 L22 7 L33 21 Z" fill="currentColor"/><circle cx="26" cy="4" r="3" fill="var(--terracota)"/></svg>
-      <span><%= tienda.toUpperCase() %></span>
+      <svg width="38" height="26" viewBox="0 0 38 26" aria-hidden="true"><path d="M1 25 L12 7 L19 16 L25 9 L37 25 Z" fill="currentColor"/><path d="M12 7 L15.5 12.5 L12 11 L8.6 12.6 Z" fill="var(--crema)"/><circle cx="29" cy="5" r="3.5" fill="var(--terracota)"/></svg>
+      <span class="logo-texto"><span class="logo-nombre"><%= tienda %></span><span class="logo-lema">Café de altura</span></span>
     </a>
     <nav class="menu" aria-label="Principal">
       <% categoriasMenu.forEach(c => { %>
@@ -62,12 +64,12 @@
       <% } else { %>
         <a class="icono" href="/login" title="Iniciar sesión"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></a>
       <% } %>
-      <a class="icono carrito" href="/carrito" title="Carrito">
+      <a class="icono carrito<%= flash && cantCarrito ? ' rebote' : '' %>" href="/carrito" title="Carrito">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 7h14l-1.5 13h-11z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
-        <span class="burbuja">Carrito (<%= cantCarrito %>)</span>
+        <span class="burbuja" aria-label="Carrito (<%= cantCarrito %>)"<%= cantCarrito ? '' : ' data-cero' %>><%= cantCarrito %></span>
       </a>
     </div>
   </div>
 </header>
-<% if (flash) { %><div class="flash" role="status"><%= flash %></div><% } %>
+<% if (flash) { %><div class="flash" role="status"><span><%= flash %></span><% if (cantCarrito) { %><a href="/carrito">Ver carrito</a><% } %></div><% } %>
 <main id="contenido">

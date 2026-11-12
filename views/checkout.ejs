@@ -9,7 +9,7 @@
         <label class="opcion"><input type="radio" name="medio" value="webpay" checked> <span><strong>Webpay Plus</strong><small>Débito, crédito o prepago (ambiente de pruebas Transbank)</small></span></label>
         <% if (simulado) { %><label class="opcion"><input type="radio" name="medio" value="simulado"> <span><strong>Pago simulado</strong><small>Aprueba al instante, para pruebas de carga</small></span></label><% } %>
       </fieldset>
-      <button class="btn ancho">Pagar <%= clp(total) %></button>
+      <button class="btn ancho" data-cargando="Procesando pago…">Pagar <%= clp(total) %></button>
       <details class="acordeon">
         <summary>Datos de prueba Webpay</summary>
         <p>Tarjeta VISA 4051 8856 0044 6623, CVV 123, cualquier fecha futura. En la autenticación: RUT 11.111.111-1, clave 123.</p>

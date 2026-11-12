@@ -1,5 +1,5 @@
 </main>
-<section class="beneficios">
+<section class="beneficios" data-revelar>
   <div><strong>Tostado semanal</strong><span>Tostamos cada martes en Santiago.</span></div>
   <div><strong>Despacho a todo Chile</strong><span>Gratis sobre $39.990.</span></div>
   <div><strong>Pago seguro</strong><span>Webpay: débito, crédito y prepago.</span></div>
@@ -8,7 +8,7 @@
 <footer class="pie">
   <div class="pie-in">
     <div class="pie-marca">
-      <p class="logo-pie"><%= tienda.toUpperCase() %></p>
+      <p class="logo-pie"><%= tienda %></p>
       <p>Café de altura, del origen a tu taza.</p>
       <form class="newsletter" onsubmit="event.preventDefault(); gtag('event','generate_lead',{method:'newsletter'}); this.innerHTML='<p>¡Listo! Te escribiremos pronto.</p>';">
         <label for="nl">Suscríbete y recibe 10% en tu primera compra</label>
@@ -37,6 +37,33 @@
     if (items.length > 1) setInterval(function () {
       items[i].classList.remove('activo'); i = (i + 1) % items.length; items[i].classList.add('activo');
     }, 4000);
+  })();
+  // Aparición suave de secciones al hacer scroll (se omite si el usuario prefiere menos movimiento).
+  (function () {
+    var els = document.querySelectorAll('[data-revelar]');
+    if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach(function (e) { e.classList.add('visible'); }); return;
+    }
+    var io = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('visible'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+  // Estado de carga en botones al enviar formularios (agregar al carrito, pagar, ingresar).
+  document.addEventListener('submit', function (ev) {
+    var b = ev.target.querySelector('[data-cargando]');
+    if (b && !ev.defaultPrevented) { b.dataset.original = b.textContent; b.classList.add('cargando'); b.setAttribute('aria-busy', 'true'); b.textContent = b.dataset.cargando; }
+  });
+  // Al volver con el botón "atrás", restaurar los botones que quedaron en estado de carga.
+  window.addEventListener('pageshow', function () {
+    document.querySelectorAll('.cargando').forEach(function (b) {
+      b.classList.remove('cargando'); b.removeAttribute('aria-busy'); if (b.dataset.original) b.textContent = b.dataset.original;
+    });
+  });
+  // El aviso (flash) se oculta solo después de unos segundos.
+  (function () {
+    var f = document.querySelector('.flash');
+    if (f) setTimeout(function () { f.classList.add('saliendo'); }, 4500);
   })();
   // Eventos GA4 de comercio electrónico generados por el servidor para esta página.
   <% if (gaPendiente) { %>gtag('event', <%- JSON.stringify(gaPendiente.evento) %>, <%- JSON.stringify(gaPendiente.params).replace(/</g, '\\u003c') %>);<% } %>

@@ -46,3 +46,18 @@ con acentos tierra andinos):
  - Listado con filtros laterales y migas; detalle con selector de cantidad, ficha y acordeones;
    carrito y checkout con resumen lateral; estados de órdenes con color.
  - Pruebas: 6/6 pasan. k6 local: 0% de errores.
+
+[2026-11-12 20:48 UTC]
+PROMPT: "Quiero que realices una mejora visual completa de mi ecommerce Café Andino [...]" (prompt largo con
+        7 secciones: tipografía Playfair Display + Montserrat y suavizado, paleta #392116 #8C431F #C65A24
+        #F6E8D5 #81764B #DDBD9C #FFFCF7, mejora de todos los componentes, tarjetas, animaciones,
+        responsive y reglas de no tocar la lógica de negocio)
+MODELO: Claude Opus 5.5 (Claude Code)
+RESUMEN: Reescritura completa de public/css/estilos.css con la paleta y tipografías pedidas
+(antialiasing, pesos 400-700, números alineados en títulos), header con logo tipográfico y lema,
+hero con degradado y montañas en tonos café, categorías y tarjetas con sombras suaves, hover y
+carga tipo "shimmer", botones redondeados con estado de carga, aviso flotante al agregar al carrito
+con rebote del ícono, aparición suave de secciones al hacer scroll (respeta prefers-reduced-motion),
+filtros, carrito, checkout, formularios y tablas rediseñados, ajustes para tablet y móvil.
+Ilustraciones de producto (src/imagenes.js) con la nueva paleta. Sin cambios en lógica, productos,
+precios, filtros ni carrito. Pruebas 6/6 y k6 local con 0% de errores.
