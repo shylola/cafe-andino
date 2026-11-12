@@ -6,7 +6,7 @@
     <label>Nombre <input name="nombre" value="<%= datos.nombre || '' %>" autocomplete="name" required></label>
     <label>Email <input name="email" type="email" value="<%= datos.email || '' %>" autocomplete="email" required></label>
     <label>Clave (mínimo 6 caracteres) <input name="password" type="password" minlength="6" autocomplete="new-password" required></label>
-    <button class="btn ancho">Crear cuenta</button>
+    <button class="btn ancho" data-cargando="Creando cuenta…">Crear cuenta</button>
   </form>
   <p class="centro">¿Ya tienes cuenta? <a href="/login">Inicia sesión</a></p>
 </div>

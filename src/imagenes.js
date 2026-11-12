@@ -19,12 +19,12 @@ function urlImagen(p) {
 
 // Paletas por producto (se elige una de forma estable según el id).
 const PALETAS = [
-  { fondo: '#f3e9dc', principal: '#2f4b3a', acento: '#d98e48' },
-  { fondo: '#efe4e1', principal: '#7a2e2a', acento: '#e7b75f' },
-  { fondo: '#e6ece9', principal: '#1f3d4d', acento: '#e08a5c' },
-  { fondo: '#f1ece2', principal: '#4a3426', acento: '#c9a227' },
-  { fondo: '#ebe6ef', principal: '#4b3a63', acento: '#e5a57a' },
-  { fondo: '#f4ebe1', principal: '#9c4f2e', acento: '#2f4b3a' },
+  { fondo: '#F6E8D5', principal: '#392116', acento: '#C65A24' },
+  { fondo: '#EFE3D0', principal: '#8C431F', acento: '#DDBD9C' },
+  { fondo: '#F3E6D6', principal: '#81764B', acento: '#C65A24' },
+  { fondo: '#F6E8D5', principal: '#5a3320', acento: '#DDBD9C' },
+  { fondo: '#EEE1CD', principal: '#C65A24', acento: '#392116' },
+  { fondo: '#F4E9DA', principal: '#4b4a2e', acento: '#DDBD9C' },
 ];
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
