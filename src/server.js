@@ -3,6 +3,8 @@ const express = require('express');
 const session = require('express-session');
 const path = require('node:path');
 const os = require('node:os');
+const fs = require('node:fs');
+const crypto = require('node:crypto');
 const db = require('./db');
 const auth = require('./auth');
 const carrito = require('./carrito');
@@ -16,6 +18,10 @@ const TIENDA = process.env.TIENDA_NOMBRE || 'Café Andino';
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '..', 'views'));
 app.set('trust proxy', 1);
+
+// Versión del CSS según su contenido: al cambiar estilos.css cambia la URL y el navegador no usa la copia vieja.
+const CSS_VERSION = crypto.createHash('md5')
+  .update(fs.readFileSync(path.join(__dirname, '..', 'public', 'css', 'estilos.css'))).digest('hex').slice(0, 8);
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -61,6 +67,7 @@ app.use((req, res, next) => {
   res.locals.gaPendiente = req.session.gaPendiente || null;
   delete req.session.gaPendiente;
   res.locals.img = urlImagen;
+  res.locals.cssVersion = CSS_VERSION;
   res.locals.categoriasMenu = categorias();
   res.locals.ruta = req.path;
   res.locals.clp = (n) => '$' + Number(n).toLocaleString('es-CL');
